@@ -30,7 +30,7 @@ module.exports = function leafletImage(map, callback) {
     // tiles, paths, and then markers
     map.eachLayer(drawTileLayer);
     map.eachLayer(drawEsriDynamicLayer);
-    
+
     if (map._pathRoot) {
         layerQueue.defer(handlePathRoot, map._pathRoot);
     } else if (map._panes) {
@@ -50,11 +50,11 @@ module.exports = function leafletImage(map, callback) {
             layerQueue.defer(handleMarkerLayer, l);
         }
     }
-    
+
     function drawEsriDynamicLayer(l) {
         if (!L.esri) return;
-       
-        if (l instanceof L.esri.DynamicMapLayer) {                       
+
+        if (l instanceof L.esri.DynamicMapLayer) {
             layerQueue.defer(handleEsriDymamicLayer, l);
         }
     }
@@ -140,7 +140,7 @@ module.exports = function leafletImage(map, callback) {
         }
 
         function loadTile(url, tilePos, tileSize, callback) {
-            var im = new Image();
+            var im = document.createElement("img");
             im.crossOrigin = '';
             im.onload = function () {
                 callback(null, {
@@ -202,7 +202,7 @@ module.exports = function leafletImage(map, callback) {
             pixelPoint = map.project(marker.getLatLng()),
             isBase64 = /^data\:/.test(marker._icon.src),
             url = isBase64 ? marker._icon.src : addCacheString(marker._icon.src),
-            im = new Image(),
+            im = document.createElement("img"),
             options = marker.options.icon.options,
             size = options.iconSize,
             pos = pixelPoint.subtract(minPoint),
@@ -228,18 +228,18 @@ module.exports = function leafletImage(map, callback) {
 
         if (isBase64) im.onload();
     }
-    
+
     function handleEsriDymamicLayer(dynamicLayer, callback) {
         var canvas = document.createElement('canvas');
         canvas.width = dimensions.x;
         canvas.height = dimensions.y;
-    
+
         var ctx = canvas.getContext('2d');
-    
-        var im = new Image();
+
+        var im = document.createElement("img");
         im.crossOrigin = '';
         im.src = addCacheString(dynamicLayer._currentImage._image.src);
-    
+
         im.onload = function() {
             ctx.drawImage(im, 0, 0);
             callback(null, {
