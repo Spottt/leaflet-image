@@ -225,8 +225,6 @@ module.exports = function leafletImage(map, callback) {
         };
 
         im.src = url;
-
-        if (isBase64) im.onload();
     }
 
     function handleEsriDymamicLayer(dynamicLayer, callback) {
