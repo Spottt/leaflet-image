@@ -1,7 +1,7 @@
 {
   "name": "leaflet-image",
-  "version": "0.4.0",
-  "description": "export leaflet maps as images",
+  "version": "0.4.1",
+  "description": "export leaflet maps as images for Spottt",
   "main": "index.js",
   "scripts": {
     "make": "browserify -s leafletImage index.js > leaflet-image.js",
